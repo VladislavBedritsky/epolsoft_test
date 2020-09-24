@@ -47,7 +47,7 @@ public class AttributeEndpoint {
                     listWithAttributeDto.add(attributeDTO);
                 });
 
-        response.getAttributeDTO().addAll(listWithAttributeDto);
+        response.getFindAll().addAll(listWithAttributeDto);
         return response;
     }
 
@@ -82,7 +82,7 @@ public class AttributeEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getUpdateAttributeRequest")
     @ResponsePayload
-    public GetUpdateAttributeResponse updateMovie(@RequestPayload GetUpdateAttributeRequest request) {
+    public GetUpdateAttributeResponse updateAttribute(@RequestPayload GetUpdateAttributeRequest request) {
         GetUpdateAttributeResponse response = new GetUpdateAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
         // 1. Find if attribute available
@@ -120,10 +120,11 @@ public class AttributeEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getDeleteAttributeRequest")
     @ResponsePayload
-    public GetDeleteAttributeResponse deleteMovie(@RequestPayload GetDeleteAttributeRequest request) {
+    public GetDeleteAttributeResponse deleteAttribute(@RequestPayload GetDeleteAttributeRequest request) {
         GetDeleteAttributeResponse response = new GetDeleteAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
 
+        System.out.println(request.getName());
         boolean isAttributeDeleted = attributeService
                                             .deleteByName(request.getName());
 

@@ -14,7 +14,7 @@
     <xs:element name="getAllAttributesResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="attributeDTO" type="tns:attributeDTO" maxOccurs="unbounded"/>
+                <xs:element name="findAll" type="tns:attributeDTO" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

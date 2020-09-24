@@ -11,6 +11,7 @@
     <modules>
         <module>soap-service</module>
         <module>common-libs</module>
+        <module>client</module>
     </modules>
 
     <properties>
