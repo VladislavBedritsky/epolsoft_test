@@ -1,16 +1,16 @@
 version: "3.3"
 services:
 
-#  soap-service:
-#    build:
-#      context: ./webClient/
-#      dockerfile: Dockerfile
-#    image: webclient
-#    ports:
-#      - 4203:4200
-#    container_name: webclient
-#    restart: on-failure
-#    command: ng serve --host 0.0.0.0 --port 4200 --disable-host-check
+  angular-client:
+    build:
+      context: ./angular-client/
+      dockerfile: Dockerfile
+    image: client
+    ports:
+      - 4205:4200
+    container_name: client
+    restart: on-failure
+    command: ng serve --host 0.0.0.0 --port 4200 --disable-host-check
 
   gatewayapi-service:
     image: maven:3.5-jdk-8-alpine
