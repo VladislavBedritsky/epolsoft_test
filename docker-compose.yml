@@ -29,6 +29,8 @@ services:
   soap-service:
     image: maven:3.5-jdk-8-alpine
     container_name: soap
+    ports:
+      - 8077:8077
     user: root
     volumes:
       - .:/app/
