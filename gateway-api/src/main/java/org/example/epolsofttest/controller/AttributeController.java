@@ -2,8 +2,6 @@ package org.example.epolsofttest.controller;
 
 
 import org.example.epolsofttest.AttributeDTO;
-import org.example.epolsofttest.GetAllAttributesResponse;
-import org.example.epolsofttest.GetAttributeByNameResponse;
 import org.example.epolsofttest.ServiceStatus;
 import org.example.epolsofttest.client.AttributeClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(
-        value = "/attributes",
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/attributes", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class AttributeController {
 
     @Autowired
