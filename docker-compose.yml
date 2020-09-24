@@ -16,26 +16,26 @@ services:
     image: maven:3.5-jdk-8-alpine
     container_name: gateway
     ports:
-      - 8077:8080
+      - 8077:8077
     user: root
     volumes:
-      - .:/app/
+      - .:/epolapp/
     command: bash -c "
-      cd /app &&
+      cd /epolapp &&
       mvn clean install -Dmaven.test.skip=true &&
-      cd /app/gateway-api &&
+      cd /epolapp/gateway-api &&
       mvn spring-boot:run"
 
   soap-service:
     image: maven:3.5-jdk-8-alpine
     container_name: soap
     ports:
-      - 8088:8080
+      - 8088:8088
     user: root
     volumes:
-      - .:/app/
+      - .:/epolapp/
     command: bash -c "
-      cd /app &&
+      cd /epolapp &&
       mvn clean install -Dmaven.test.skip=true &&
-      cd /app/soap-service &&
+      cd /epolapp/soap-service &&
       mvn spring-boot:run"
