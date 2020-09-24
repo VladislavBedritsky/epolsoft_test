@@ -14,8 +14,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry
                 .addMapping("/**")
                 .allowedOrigins("*")
-                .allowedMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type, Authorization")
+                .allowedMethods("*")
+                .allowedHeaders("*")
                 .allowCredentials(true);
     }
 
