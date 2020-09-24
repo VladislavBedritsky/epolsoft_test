@@ -1,1 +1,79 @@
-<p>attribute works!</p>
+<h1>Attributes</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Value</th>
+    <th scope="col">Description</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let attr of attributes">
+    <td>{{attr.name}}</td>
+    <td>{{attr.value}}</td>
+    <td>{{attr.description}}</td>
+    <td>
+      <a (click)="delete(attr.name)">
+        <span class="material-icons">
+          clear
+        </span>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<form [formGroup]="attrForm">
+  <div class="form-group">
+    <p *ngIf="attrForm.controls['name'].errors?.required &&
+                  attrForm.controls['name'].touched">
+      Name can't be empty
+    </p>
+    <p *ngIf="isUserNameAlreadyExists">
+      Such name is already exists
+    </p>
+    <p *ngIf="attrForm.controls['name'].errors?.pattern">
+      Name don't match (e.g. 'mr_brown')
+    </p>
+    <input type="text"
+           class="form-control"
+           id="exampleInputName"
+           placeholder="Name"
+           formControlName="name"
+           (input)="filterNames()">
+  </div>
+  <div class="form-group">
+    <p *ngIf="attrForm.controls['value'].errors?.required &&
+                  attrForm.controls['value'].touched">
+      Value can't be empty
+    </p>
+    <input type="text"
+           class="form-control"
+           id="exampleInputValue"
+           placeholder="Value"
+           formControlName="value">
+  </div>
+  <div class="form-group">
+    <p *ngIf="attrForm.controls['description'].errors?.required &&
+                  attrForm.controls['description'].touched">
+      Description can't be empty
+    </p>
+    <input type="text"
+           class="form-control"
+           id="exampleInputDesc"
+           placeholder="Description"
+           formControlName="description">
+  </div>
+  <button type="submit"
+          class="btn btn-primary"
+          (click)="save()"
+          [disabled]="!attrForm.valid ||
+                   (isUserNameAlreadyExists)">Save</button>
+  <button type="submit"
+          class="btn btn-primary"
+          style="margin-left: 5px;"
+          [disabled]="!attrForm.valid ||
+                   (isUserNameAlreadyExists)">Update</button>
+</form>
