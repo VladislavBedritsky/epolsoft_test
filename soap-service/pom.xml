@@ -9,9 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-service</artifactId>
+    <artifactId>soap-service</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>common-libs</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web-services</artifactId>
@@ -25,10 +29,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>wsdl4j</groupId>
-            <artifactId>wsdl4j</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -37,28 +37,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.3.1</version>
-                <executions>
-                    <execution>
-                        <id>xjc-schema</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sources>
-                        <source>src/main/resources/xsd/attribute.xsd</source>
-                    </sources>
-                    <packageName>org.example.epolsofttest</packageName>
-                    <clearOutputDir>false</clearOutputDir>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
