@@ -7,6 +7,6 @@ jaxb:
 
 soap:
   server:
-    uri: http://34.89.239.220:8088/ws
+    uri: https://epol-soap.xfarm.xyz/ws
   attributes:
-    uri: http://34.89.239.220:8088/ws/attributes
+    uri: https://epol-soap.xfarm.xyz/ws/attributes
