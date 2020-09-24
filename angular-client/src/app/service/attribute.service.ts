@@ -22,11 +22,8 @@ export class AttributeService {
   }
 
   saveAttribute(attribute): Observable<any> {
-    const httpOptions = {
-        headers: new HttpHeaders({'Content-Type': 'application/json'})
-    }
     const uri = `${this.attributesUri}/save`;
-    return this._httpClient.post<any>(uri, attribute, httpOptions);
+    return this._httpClient.post<any>(uri, attribute);
   }
 
   updateAttribute(attribute): Observable<any> {

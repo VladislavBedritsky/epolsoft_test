@@ -52,7 +52,7 @@ export class AttributeComponent implements OnInit {
     );
 
 
-    this._attributeService.saveAttribute(name).subscribe(
+    this._attributeService.saveAttribute(attribute).subscribe(
       data =>
         console.log(data)
     )
