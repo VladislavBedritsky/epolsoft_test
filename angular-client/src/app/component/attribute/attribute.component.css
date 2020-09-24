@@ -1,4 +1,4 @@
-h1 {
+h1, h2 {
   text-align: center;
 }
 
@@ -12,6 +12,8 @@ h1 {
   cursor: pointer;
 }
 
+
+
 form {
   width: 60%;
   margin-left: auto;
@@ -20,4 +22,12 @@ form {
 
 form p {
   color: red;
+}
+
+#switch_link {
+    color: blue;
+    cursor: pointer;
+}
+#switch_link:hover {
+  text-decoration: underline;
 }

@@ -28,6 +28,8 @@ export class AttributeComponent implements OnInit {
 
   isUserNameAlreadyExists: boolean = false;
 
+  isUpdatedForm: boolean = false;
+
   constructor(private _attributeService: AttributeService) { }
 
   ngOnInit(): void {
@@ -53,20 +55,41 @@ export class AttributeComponent implements OnInit {
 
 
     this._attributeService.saveAttribute(attribute).subscribe(
-      data =>
+      data => {
         console.log(data)
+        this.getAllAttributes()
+      }
     )
+
   }
 
-  update(attribute) {
-    console.log(attribute)
+  update() {
+    var attribute = new Attribute(
+      this.attrForm.controls['name'].value,
+      this.attrForm.controls['value'].value,
+      this.attrForm.controls['description'].value,
+    );
+
+
+    this._attributeService.updateAttribute(attribute).subscribe(
+      data => {
+        console.log(data)
+        this.getAllAttributes()
+      }
+    )
+
   }
+
 
   delete(name) {
     this._attributeService.deleteAttribute(name).subscribe(
-      data =>
+      data => {
         console.log(data)
+        this.getAllAttributes()
+      }
     )
+
+
   }
 
   filterNames() {
@@ -84,7 +107,19 @@ export class AttributeComponent implements OnInit {
     }
   }
 
+  switchToUpdateAttr(attr) {
+    this.isUpdatedForm = true;
+    this.attrForm.controls['name'].setValue(attr.name)
+    this.attrForm.controls['value'].setValue(attr.value)
+    this.attrForm.controls['description'].setValue(attr.description)
+  }
 
+  switchToCreateAttr() {
+    this.isUpdatedForm = false;
+    this.attrForm.controls['name'].setValue('')
+    this.attrForm.controls['value'].setValue('')
+    this.attrForm.controls['description'].setValue('')
+  }
 
 
 }

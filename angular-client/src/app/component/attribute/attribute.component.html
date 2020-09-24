@@ -7,13 +7,21 @@
     <th scope="col">Value</th>
     <th scope="col">Description</th>
     <th scope="col"></th>
+    <th scope="col"></th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let attr of attributes">
-    <td>{{attr.name}}</td>
+    <td><a [href]="'https://epol-gatewayapi.xfarm.xyz/attributes/'+attr.name">{{attr.name}}</a></td>
     <td>{{attr.value}}</td>
     <td>{{attr.description}}</td>
+    <td>
+      <a (click)="switchToUpdateAttr(attr)">
+        <span class="material-icons">
+         create
+        </span>
+      </a>
+    </td>
     <td>
       <a (click)="delete(attr.name)">
         <span class="material-icons">
@@ -25,7 +33,10 @@
   </tbody>
 </table>
 
-<form [formGroup]="attrForm">
+
+<h2 *ngIf="!isUpdatedForm">Create attribute</h2>
+<form [formGroup]="attrForm"
+      *ngIf="!isUpdatedForm">
   <div class="form-group">
     <p *ngIf="attrForm.controls['name'].errors?.required &&
                   attrForm.controls['name'].touched">
@@ -35,7 +46,7 @@
       Such name is already exists
     </p>
     <p *ngIf="attrForm.controls['name'].errors?.pattern">
-      Name don't match (e.g. 'mr_brown')
+      Name doesn't match (e.g. 'mr_brown')
     </p>
     <input type="text"
            class="form-control"
@@ -71,9 +82,49 @@
           (click)="save()"
           [disabled]="!attrForm.valid ||
                    (isUserNameAlreadyExists)">Save</button>
+
+</form>
+
+
+
+<h2 *ngIf="isUpdatedForm">Update {{attrForm.controls['name'].value}}</h2>
+
+<form [formGroup]="attrForm"
+      *ngIf="isUpdatedForm">
+
+  <a id="switch_link"
+     (click)="switchToCreateAttr()"
+     *ngIf="isUpdatedForm">
+    Create attribute
+  </a>
+  <div class="form-group">
+
+  </div>
+  <div class="form-group">
+    <p *ngIf="attrForm.controls['value'].errors?.required &&
+                  attrForm.controls['value'].touched">
+      Value can't be empty
+    </p>
+    <input type="text"
+           class="form-control"
+           id="exampleInputValue1"
+           placeholder="Value"
+           formControlName="value">
+  </div>
+  <div class="form-group">
+    <p *ngIf="attrForm.controls['description'].errors?.required &&
+                  attrForm.controls['description'].touched">
+      Description can't be empty
+    </p>
+    <input type="text"
+           class="form-control"
+           id="exampleInputDesc2"
+           placeholder="Description"
+           formControlName="description">
+  </div>
   <button type="submit"
           class="btn btn-primary"
-          style="margin-left: 5px;"
-          [disabled]="!attrForm.valid ||
-                   (isUserNameAlreadyExists)">Update</button>
+          (click)="update()"
+          [disabled]="!attrForm.valid">Update</button>
+
 </form>
