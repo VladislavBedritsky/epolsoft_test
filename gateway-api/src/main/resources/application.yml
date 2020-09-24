@@ -1,2 +1,10 @@
 server:
   port: 8077
+
+jaxb:
+  context:
+    path: org.example.epolsofttest
+
+soap:
+  server:
+    uri: http://34.89.239.220:8088/ws

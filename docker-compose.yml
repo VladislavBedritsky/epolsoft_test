@@ -1,0 +1,39 @@
+version: "3.3"
+services:
+
+#  soap-service:
+#    build:
+#      context: ./webClient/
+#      dockerfile: Dockerfile
+#    image: webclient
+#    ports:
+#      - 4203:4200
+#    container_name: webclient
+#    restart: on-failure
+#    command: ng serve --host 0.0.0.0 --port 4200 --disable-host-check
+
+  gatewayapi-service:
+    image: maven:3.5-jdk-8-alpine
+    container_name: gateway
+    ports:
+      - 8088:8088
+    user: root
+    volumes:
+      - .:/app/
+    command: bash -c "
+      cd /app &&
+      mvn clean install -Dmaven.test.skip=true &&
+      cd /app/gateway-api &&
+      mvn spring-boot:run"
+
+  soap-service:
+    image: maven:3.5-jdk-8-alpine
+    container_name: soap
+    user: root
+    volumes:
+      - .:/app/
+    command: bash -c "
+      cd /app &&
+      mvn clean install -Dmaven.test.skip=true &&
+      cd /app/soap-service &&
+      mvn spring-boot:run"
