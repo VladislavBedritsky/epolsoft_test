@@ -8,3 +8,5 @@ jaxb:
 soap:
   server:
     uri: http://34.89.239.220:8088/ws
+  attributes:
+    uri: http://localhost:8088/ws/attributes

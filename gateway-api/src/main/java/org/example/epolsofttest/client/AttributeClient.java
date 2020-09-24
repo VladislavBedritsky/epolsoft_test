@@ -1,13 +1,15 @@
 package org.example.epolsofttest.client;
 
 import org.example.epolsofttest.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
 import java.util.List;
 
 public class AttributeClient extends WebServiceGatewaySupport {
 
-    private static final String ATTRIBUTES_URL = "http://localhost:8088/ws/attributes";
+    @Value("${soap.attributes.uri}")
+    private String ATTRIBUTES_URL;
 
     public AttributeDTO getAttributeByNameResponse(String name) {
         GetAttributeByNameRequest request = new GetAttributeByNameRequest();
