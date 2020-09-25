@@ -28,7 +28,10 @@ public class AttributeEndpoint {
         Attribute attribute = attributeService.getByName(request.getName());
         AttributeType attributeType = new AttributeType();
 
-        BeanUtils.copyProperties(attribute, attributeType);
+        if (attribute != null) {
+            BeanUtils.copyProperties(attribute, attributeType);
+        }
+
         response.setAttributeType(attributeType);
         return response;
     }
@@ -58,8 +61,11 @@ public class AttributeEndpoint {
         GetAddAttributeResponse response = new GetAddAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
 
-        Attribute newAttribute = new Attribute();
-        BeanUtils.copyProperties(request, newAttribute);
+        Attribute newAttribute = new Attribute(
+                request.getAttributeType().getName(),
+                request.getAttributeType().getValue(),
+                request.getAttributeType().getDescription()
+        );
 
         Attribute savedAttribute = attributeService.save(newAttribute);
 
@@ -121,6 +127,20 @@ public class AttributeEndpoint {
         GetDeleteAttributeResponse response = new GetDeleteAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
 
+        // 1. Find if attribute available
+        Attribute attributeFromDB = attributeService.getByName(
+                request.getName()
+        );
+
+        if(attributeFromDB == null) {
+            serviceStatus.setStatusCode("NOT FOUND");
+            serviceStatus.setMessage("Attribute = " + request.getName() + " not found");
+
+            response.setServiceStatus(serviceStatus);
+            return response;
+        }
+
+        // 2. delete the attribute in database
         boolean isAttributeDeleted = attributeService
                                             .deleteByName(request.getName());
 

@@ -1,12 +1,3 @@
-server:
-  port: 8077
-
-jaxb:
-  context:
-    path: org.example.epolsofttest
-
-soap:
-  server:
-    uri: https://epol-soap.xfarm.xyz/ws
-  attributes:
-    uri: https://epol-soap.xfarm.xyz/ws/attributes
+spring:
+  profiles:
+    active: prod
