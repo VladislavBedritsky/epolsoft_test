@@ -40,7 +40,6 @@ export class AttributeComponent implements OnInit {
     this._attributeService.getAllAttributes().subscribe(
       data => {
         this.attributes = data;
-        console.log(this.attributes)
       }
     )
   }
