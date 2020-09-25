@@ -14,7 +14,7 @@
     <xs:element name="getAllAttributesResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="findAll" type="tns:attributeDTO" maxOccurs="unbounded"/>
+                <xs:element name="findAll" type="tns:attributeType" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -31,7 +31,7 @@
     <xs:element name="getAttributeByNameResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="attributeDTO" type="tns:attributeDTO"/>
+                <xs:element name="attributeType" type="tns:attributeType"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -57,7 +57,7 @@
     <xs:element name="getUpdateAttributeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="attributeDTO" type="tns:attributeDTO"></xs:element>
+                <xs:element name="attributeType" type="tns:attributeType"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -73,7 +73,7 @@
     <xs:element name="getAddAttributeRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="attributeDTO" type="tns:attributeDTO"></xs:element>
+                <xs:element name="attributeType" type="tns:attributeType"></xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -82,12 +82,11 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="serviceStatus" type="tns:serviceStatus"/>
-                <xs:element name="attributeDTO" type="tns:attributeDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="attributeDTO">
+    <xs:complexType name="attributeType">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="value" type="xs:string"/>

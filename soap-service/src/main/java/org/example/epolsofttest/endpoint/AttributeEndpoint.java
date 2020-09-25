@@ -26,9 +26,10 @@ public class AttributeEndpoint {
     public GetAttributeByNameResponse getAttributeByName(@RequestPayload GetAttributeByNameRequest request) {
         GetAttributeByNameResponse response = new GetAttributeByNameResponse();
         Attribute attribute = attributeService.getByName(request.getName());
-        AttributeDTO attributeDTO = new AttributeDTO();
-        BeanUtils.copyProperties(attribute, attributeDTO);
-        response.setAttributeDTO(attributeDTO);
+        AttributeType attributeType = new AttributeType();
+
+        BeanUtils.copyProperties(attribute, attributeType);
+        response.setAttributeType(attributeType);
         return response;
     }
 
@@ -37,17 +38,17 @@ public class AttributeEndpoint {
     @ResponsePayload
     public GetAllAttributesResponse getAllAttributes(@RequestPayload GetAllAttributesRequest request) {
         GetAllAttributesResponse response = new GetAllAttributesResponse();
-        List<AttributeDTO> listWithAttributeDto = new ArrayList<>();
+        List<AttributeType> listWithAttributeType = new ArrayList<>();
         List<Attribute> listWithAttributes = attributeService.findAll();
 
         listWithAttributes
                 .forEach(attribute -> {
-                    AttributeDTO attributeDTO = new AttributeDTO();
-                    BeanUtils.copyProperties(attribute, attributeDTO);
-                    listWithAttributeDto.add(attributeDTO);
+                    AttributeType attributeType = new AttributeType();
+                    BeanUtils.copyProperties(attribute, attributeType);
+                    listWithAttributeType.add(attributeType);
                 });
 
-        response.getFindAll().addAll(listWithAttributeDto);
+        response.getFindAll().addAll(listWithAttributeType);
         return response;
     }
 
@@ -55,14 +56,11 @@ public class AttributeEndpoint {
     @ResponsePayload
     public GetAddAttributeResponse addAttribute(@RequestPayload GetAddAttributeRequest request) {
         GetAddAttributeResponse response = new GetAddAttributeResponse();
-        AttributeDTO newAttributeDto = new AttributeDTO();
         ServiceStatus serviceStatus = new ServiceStatus();
 
-        Attribute newAttribute = new Attribute(
-                request.getAttributeDTO().getName(),
-                request.getAttributeDTO().getValue(),
-                request.getAttributeDTO().getDescription()
-                );
+        Attribute newAttribute = new Attribute();
+        BeanUtils.copyProperties(request, newAttribute);
+
         Attribute savedAttribute = attributeService.save(newAttribute);
 
         if (savedAttribute == null) {
@@ -70,12 +68,10 @@ public class AttributeEndpoint {
             serviceStatus.setMessage("Exception while adding Entity");
         } else {
 
-            BeanUtils.copyProperties(savedAttribute, newAttributeDto);
             serviceStatus.setStatusCode("SUCCESS");
             serviceStatus.setMessage("Content Added Successfully");
         }
 
-        response.setAttributeDTO(newAttributeDto);
         response.setServiceStatus(serviceStatus);
         return response;
     }
@@ -85,32 +81,33 @@ public class AttributeEndpoint {
     public GetUpdateAttributeResponse updateAttribute(@RequestPayload GetUpdateAttributeRequest request) {
         GetUpdateAttributeResponse response = new GetUpdateAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
+
         // 1. Find if attribute available
         Attribute attributeFromDB = attributeService.getByName(
-                request.getAttributeDTO().getName()
+                request.getAttributeType().getName()
         );
 
         if(attributeFromDB == null) {
             serviceStatus.setStatusCode("NOT FOUND");
-            serviceStatus.setMessage("Attribute = " + request.getAttributeDTO().getName() + " not found");
+            serviceStatus.setMessage("Attribute = " + request.getAttributeType().getName() + " not found");
         }else {
 
             // 2. Get updated attribute information from the request
-            attributeFromDB.setName(request.getAttributeDTO().getName());
-            attributeFromDB.setValue(request.getAttributeDTO().getValue());
-            attributeFromDB.setDescription(request.getAttributeDTO().getDescription());
+            attributeFromDB.setName(request.getAttributeType().getName());
+            attributeFromDB.setValue(request.getAttributeType().getValue());
+            attributeFromDB.setDescription(request.getAttributeType().getDescription());
 
             // 3. update the attribute in database
             boolean isAttributeSaved = attributeService.update(attributeFromDB);
 
             if(!isAttributeSaved) {
                 serviceStatus.setStatusCode("CONFLICT");
-                serviceStatus.setMessage("Exception while updating Attribute=" + request.getAttributeDTO().getName());;
+                serviceStatus.setMessage("Exception while updating Attribute=" +
+                        request.getAttributeType().getName());
             }else {
                 serviceStatus.setStatusCode("SUCCESS");
                 serviceStatus.setMessage("Content updated Successfully");
             }
-
 
         }
 
@@ -124,7 +121,6 @@ public class AttributeEndpoint {
         GetDeleteAttributeResponse response = new GetDeleteAttributeResponse();
         ServiceStatus serviceStatus = new ServiceStatus();
 
-        System.out.println(request.getName());
         boolean isAttributeDeleted = attributeService
                                             .deleteByName(request.getName());
 

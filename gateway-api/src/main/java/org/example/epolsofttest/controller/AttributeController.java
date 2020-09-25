@@ -1,13 +1,14 @@
 package org.example.epolsofttest.controller;
 
 
-import org.example.epolsofttest.AttributeDTO;
 import org.example.epolsofttest.ServiceStatus;
-import org.example.epolsofttest.client.AttributeClient;
+import org.example.epolsofttest.consumer.AttributeConsumer;
+import org.example.epolsofttest.dto.AttributeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,33 +16,33 @@ import java.util.List;
 public class AttributeController {
 
     @Autowired
-    private AttributeClient attributeClient;
+    private AttributeConsumer attributeConsumer;
 
     @GetMapping
-    public List<AttributeDTO> findAll() {
-        return attributeClient.getAllAttributes();
+    public List<AttributeDto> findAll() {
+        return attributeConsumer.getAllAttributes();
     }
 
     @GetMapping("/{name}")
-    public AttributeDTO getAttributeByName(
+    public AttributeDto getAttributeByName(
             @PathVariable String name
     ) {
 
-        return attributeClient.getAttributeByNameResponse(name);
+        return attributeConsumer.getAttributeByNameResponse(name);
     }
 
     @PostMapping("/save")
-    public ServiceStatus saveAttribute(@RequestBody AttributeDTO attributeDTO) {
-        return attributeClient.saveAttribute(attributeDTO);
+    public ServiceStatus saveAttribute(@RequestBody @Valid AttributeDto attributeDto) {
+        return attributeConsumer.saveAttribute(attributeDto);
     }
 
     @PutMapping("/update")
-    public ServiceStatus updateAttribute(@RequestBody AttributeDTO attributeDTO) {
-        return attributeClient.updateAttribute(attributeDTO);
+    public ServiceStatus updateAttribute(@RequestBody @Valid AttributeDto attributeDto) {
+        return attributeConsumer.updateAttribute(attributeDto);
     }
 
     @DeleteMapping("/delete/{name}")
     public ServiceStatus deleteAttribute(@PathVariable String name) {
-        return attributeClient.deleteAttribute(name);
+        return attributeConsumer.deleteAttribute(name);
     }
 }

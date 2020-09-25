@@ -1,30 +1,48 @@
-package org.example.epolsofttest.client;
+package org.example.epolsofttest.consumer;
 
 import org.example.epolsofttest.*;
+import org.example.epolsofttest.dto.AttributeDto;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AttributeClient extends WebServiceGatewaySupport {
+public class AttributeConsumer extends WebServiceGatewaySupport {
 
     @Value("${soap.attributes.uri}")
     private String ATTRIBUTES_URL;
 
-    public AttributeDTO getAttributeByNameResponse(String name) {
+    public AttributeDto getAttributeByNameResponse(String name) {
+        AttributeDto attributeDto = new AttributeDto();
+
         GetAttributeByNameRequest request = new GetAttributeByNameRequest();
         request.setName(name);
-
         GetAttributeByNameResponse response = (GetAttributeByNameResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(ATTRIBUTES_URL, request);
-        return response.getAttributeDTO();
+
+        BeanUtils.copyProperties(response.getAttributeType(), attributeDto);
+
+        return attributeDto;
     }
 
-    public List<AttributeDTO> getAllAttributes() {
+    public List<AttributeDto> getAllAttributes() {
+        List<AttributeDto> attributeDtoList = new ArrayList<>();
+
         GetAllAttributesRequest request = new GetAllAttributesRequest();
         GetAllAttributesResponse getAllAttributesResponse = (GetAllAttributesResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(ATTRIBUTES_URL, request);
-        return getAllAttributesResponse.getFindAll();
+
+        List<AttributeType> attributeTypeList = getAllAttributesResponse.getFindAll();
+        attributeTypeList
+                .forEach(attributeType -> {
+                    AttributeDto attributeDto = new AttributeDto();
+                    BeanUtils.copyProperties(attributeType, attributeDto);
+                    attributeDtoList.add(attributeDto);
+                });
+
+        return attributeDtoList;
 
     }
 
@@ -39,9 +57,12 @@ public class AttributeClient extends WebServiceGatewaySupport {
         return getDeleteAttributeResponse.getServiceStatus();
     }
 
-    public ServiceStatus updateAttribute(AttributeDTO attribute) {
+    public ServiceStatus updateAttribute(AttributeDto attribute) {
+        AttributeType attributeType = new AttributeType();
+        BeanUtils.copyProperties(attribute, attributeType);
+
         GetUpdateAttributeRequest request = new GetUpdateAttributeRequest();
-        request.setAttributeDTO(attribute);
+        request.setAttributeType(attributeType);
 
         GetUpdateAttributeResponse response = (GetUpdateAttributeResponse)
                 getWebServiceTemplate()
@@ -50,9 +71,12 @@ public class AttributeClient extends WebServiceGatewaySupport {
         return response.getServiceStatus();
     }
 
-    public ServiceStatus saveAttribute(AttributeDTO attribute) {
+    public ServiceStatus saveAttribute(AttributeDto attribute) {
+        AttributeType attributeType = new AttributeType();
+        BeanUtils.copyProperties(attribute, attributeType);
+
         GetAddAttributeRequest request = new GetAddAttributeRequest();
-        request.setAttributeDTO(attribute);
+        request.setAttributeType(attributeType);
 
         GetAddAttributeResponse response =
                 (GetAddAttributeResponse) getWebServiceTemplate()

@@ -1,6 +1,6 @@
 package org.example.epolsofttest.config;
 
-import org.example.epolsofttest.client.AttributeClient;
+import org.example.epolsofttest.consumer.AttributeConsumer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +23,8 @@ public class BeansConfig {
     }
 
     @Bean
-    public AttributeClient countryClient(Jaxb2Marshaller marshaller) {
-        AttributeClient client = new AttributeClient();
+    public AttributeConsumer attributeConsumer(Jaxb2Marshaller marshaller) {
+        AttributeConsumer client = new AttributeConsumer();
         client.setDefaultUri(SOAP_SERVER_URI);
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
