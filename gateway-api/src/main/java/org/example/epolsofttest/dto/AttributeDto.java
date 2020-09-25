@@ -4,6 +4,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
+/**
+ * Attribute Data Transfer Object
+ *
+ * @version 1.01 26 Sep 2020
+ * @author Uladzislau Biadrytski
+ */
 public class AttributeDto {
 
     @NotBlank

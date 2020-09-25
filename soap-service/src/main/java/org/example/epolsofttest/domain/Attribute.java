@@ -7,6 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * Attribute entity
+ *
+ * @version 1.01 25 Sep 2020
+ * @author Uladzislau Biadrytski
+ */
 @Entity
 @Table(name="sv_conf")
 public class Attribute {

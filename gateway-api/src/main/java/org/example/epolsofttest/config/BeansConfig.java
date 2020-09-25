@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
+/**
+ * Common beans configuration class.
+ *
+ * @version 1.01 25 Sep 2020
+ * @author Uladzislau Biadrytski
+ */
 @Configuration
 public class BeansConfig {
 
