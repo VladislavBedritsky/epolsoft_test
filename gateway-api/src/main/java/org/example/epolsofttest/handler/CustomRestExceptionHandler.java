@@ -24,7 +24,7 @@ import java.util.ArrayList;
 @ControllerAdvice
 public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    Logger logger = LoggerFactory.getLogger(CustomRestExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomRestExceptionHandler.class);
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -45,7 +45,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         serviceStatus.setStatusCode("ERROR");
         serviceStatus.setMessage("Errors: " +errors);
 
-        logger.error("Errors: " +errors);
+        LOGGER.error("Errors: " +errors);
 
         return handleExceptionInternal(
                 ex, serviceStatus, headers, HttpStatus.BAD_REQUEST, request);

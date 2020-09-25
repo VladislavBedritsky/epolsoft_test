@@ -1,6 +1,6 @@
 # Test task for EPOL_SOFT
 
-I hope you'll enjoy   my solution and I won't make any inconvenience by building a microservice architecture and using the Gateway API enterprise pattern.
+I hope you'll enjoy my solution and I won't make any inconvenience by building a microservice architecture and using the Gateway API enterprise pattern.
 
 ### Let's started...
 
@@ -22,7 +22,7 @@ I hope you'll enjoy   my solution and I won't make any inconvenience by building
 3) **An angular client**:
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/angular-client
         
-4) **Gateway API service**(_Implementation of the GATEWAY API pattern. In our case, it acts as a consumer of the SOAP service and as a data producer by REST protocol to clients. My decision is based on easy project extensibility and also team development if necessary._):
+4) **Gateway API service**(_Implementation of the GATEWAY API pattern. In our case, it acts as a consumer of the SOAP service and as a data producer by REST protocol to clients. My decision is based on easy project extensibility and for team development also if necessary._):
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/gateway-api
         
 ## Steps to run services locally:
@@ -48,4 +48,6 @@ I hope you'll enjoy   my solution and I won't make any inconvenience by building
     
  ### OR you can type 1 command to run all services locally:
  * `docker-compose up -d`       
+ 
+ ### Thanks for your time! Have a nice day)
          
