@@ -126,4 +126,5 @@ public class AttributeEndpointTest {
         Mockito.verify(attributeService, Mockito.times(1))
                 .save(isA(Attribute.class));
     }
+
 }
