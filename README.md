@@ -27,7 +27,7 @@ I hope you'll enjoy my solution and I won't make any inconvenience by building a
         
 ## Steps to run services locally:
     
-1) Make sure that active profile switched to **DEV**:
+1) _Please, make sure that active profile switched to_ **dev**:
     https://github.com/VladislavBedritsky/epolsoft_test/blob/master/gateway-api/src/main/resources/application.yml
 2) `git clone git@github.com:VladislavBedritsky/epolsoft_test.git`
 3) Project build: 
