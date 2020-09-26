@@ -15,14 +15,17 @@ I hope you'll enjoy my solution and I won't make any inconvenience by building a
 
 1) **SQL scripts**(_In order to simplify the project, I used Spring script initializer instead of Liquibase framework for example_): 
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/soap-service/src/main/resources
+
+2) **JAXB classes and xsd scheme**:
+        https://github.com/VladislavBedritsky/epolsoft_test/tree/master/common-libs/src/main/resources/xsd       
                
-2) **SOAP service**: 
+3) **SOAP service**: 
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/soap-service 
         
-3) **An angular client**:
+4) **An angular client**:
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/angular-client
         
-4) **Gateway API service**(_Implementation of the GATEWAY API pattern. In our case, it acts as a consumer of the SOAP service and as a data producer by REST protocol to clients. My decision is based on easy project extensibility and for team development also if necessary._):
+5) **Gateway API service**(_Implementation of the GATEWAY API pattern. In our case, it acts as a consumer of the SOAP service and as a data producer by REST protocol to clients. My decision is based on easy project extensibility and for team development also if necessary._):
         https://github.com/VladislavBedritsky/epolsoft_test/tree/master/gateway-api
         
 ## Steps to run services locally:
