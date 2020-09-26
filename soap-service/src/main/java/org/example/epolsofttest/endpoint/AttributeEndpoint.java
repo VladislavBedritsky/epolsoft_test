@@ -46,12 +46,17 @@ public class AttributeEndpoint {
         LOGGER.info("Handling request = 'getAttributeByNameRequest'");
 
         GetAttributeByNameResponse response = new GetAttributeByNameResponse();
-        Attribute attribute = attributeService.getByName(request.getName());
+        Attribute attributeFromDb = attributeService.getByName(request.getName());
         AttributeType attributeType = new AttributeType();
 
-        BeanUtils.copyProperties(attribute, attributeType);
-        response.setAttributeType(attributeType);
+        if(attributeFromDb != null) {
+            BeanUtils.copyProperties(attributeFromDb, attributeType);
+            response.setAttributeType(attributeType);
+        } else {
+            response.setAttributeType(new AttributeType());
+        }
         return response;
+
     }
 
     /**
