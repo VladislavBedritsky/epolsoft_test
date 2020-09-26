@@ -2,7 +2,7 @@
 
 I hope you'll enjoy my solution and I won't make any inconvenience by building a microservice architecture and using the Gateway API enterprise pattern.
 
-### Let's started...
+### Let's start...
 
 ## Check services remotely:
   * An angular client: https://epol-client.xfarm.xyz/
