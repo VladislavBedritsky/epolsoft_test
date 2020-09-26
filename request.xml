@@ -1,0 +1,13 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://example.org/xsd/attribute">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getAddAttributeRequest>
+            <gs:attributeType>
+                <gs:name>mr_brown</gs:name>
+                <gs:value>mr</gs:value>
+                <gs:description>brown</gs:description>
+            </gs:attributeType>
+        </gs:getAddAttributeRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
