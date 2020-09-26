@@ -38,11 +38,11 @@ I hope you'll enjoy my solution and I won't make any inconvenience by building a
 4) Gateway Api start:
     * `cd gateway-api`
     * `mvn spring-boot:run`
-    * http://localhost:8088/ws/attributes.wsdl
+    * http://localhost:8077/attributes
 5) SOAP service start:
     * `cd soap-service`
     * `mvn spring-boot:run`
-    * http://localhost:8077/attributes
+    * http://localhost:8088/ws/attributes.wsdl
 6) An angular client start:
     * `cd angular-client`
     * `npm install`
