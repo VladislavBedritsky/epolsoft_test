@@ -8,14 +8,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
+import org.springframework.ws.server.EndpointInterceptor;
+import org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
+import java.util.List;
+
 /**
  * Web services configuration class.
- *
  *
  * @version 1.01 25 Sep 2020
  * @author Uladzislau Biadrytski
@@ -46,5 +49,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchema attributeSchema(){
         return new SimpleXsdSchema(new ClassPathResource("/xsd/attribute.xsd"));
+    }
+
+    @Override
+    public void addInterceptors(List<EndpointInterceptor> interceptors) {
+        PayloadValidatingInterceptor validatingInterceptor = new PayloadValidatingInterceptor();
+        validatingInterceptor.setValidateRequest(true);
+        validatingInterceptor.setValidateResponse(true);
+        validatingInterceptor.setXsdSchema(attributeSchema());
+        interceptors.add(validatingInterceptor);
     }
 }

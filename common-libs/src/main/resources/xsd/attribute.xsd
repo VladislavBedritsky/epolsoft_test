@@ -86,11 +86,30 @@
         </xs:complexType>
     </xs:element>
 
+    <!-- complex types -->
     <xs:complexType name="attributeType">
         <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
-            <xs:element name="value" type="xs:string"/>
-            <xs:element name="description" type="xs:string"/>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[A-Za-z]+[_-][A-Za-z]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="value" >
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="description">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="serviceStatus">
@@ -100,3 +119,4 @@
         </xs:sequence>
     </xs:complexType>
 </xs:schema>
+
